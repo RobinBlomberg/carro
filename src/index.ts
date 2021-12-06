@@ -32,7 +32,7 @@ export type CarroMethods = {
 };
 
 export type CarroMutations = {
-  [K in string]: (payload: unknown) => void;
+  [K in string]: (payload: any) => void;
 };
 
 export type CarroPayload<
@@ -43,12 +43,12 @@ export type CarroPayload<
   TMutations extends CarroMutations,
   TState extends CarroState,
 > = {
-  computed: TComputed;
-  effects: TEffects;
-  events: TEvents;
-  methods: TMethods;
-  mutations: TMutations;
-  state: TState;
+  computed?: TComputed;
+  effects?: TEffects;
+  events?: TEvents;
+  methods?: TMethods;
+  mutations?: TMutations;
+  state?: TState;
 };
 
 export type CarroState = {
@@ -72,16 +72,16 @@ export const useCarro = <
     TState
   >,
 ): Carro<TComputed, TEvents, TMethods, TMutations, TState> => {
-  for (const { dependencies, effect } of payload.effects) {
+  for (const { dependencies, effect } of payload.effects ?? []) {
     useEffect(effect, dependencies);
   }
 
   return {
-    computed: payload.computed,
-    events: payload.events,
-    methods: payload.methods,
-    mutations: payload.mutations,
-    state: payload.state,
+    computed: (payload.computed ?? {}) as TComputed,
+    events: (payload.events ?? {}) as TEvents,
+    methods: (payload.methods ?? {}) as TMethods,
+    mutations: (payload.mutations ?? {}) as TMutations,
+    state: (payload.state ?? {}) as TState,
   };
 };
 
