@@ -1,0 +1,36 @@
+{
+  "name": "carro",
+  "version": "0.1.0",
+  "author": "Robin Blomberg",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RobinBlomberg/carro.git"
+  },
+  "bugs": {
+    "url": "https://github.com/RobinBlomberg/carro/issues"
+  },
+  "homepage": "https://github.com/RobinBlomberg/carro#readme",
+  "scripts": {
+    "build": "tsc",
+    "lint": "eslint ./src"
+  },
+  "dependencies": {
+    "react": "^17.0.2"
+  },
+  "devDependencies": {
+    "@robinblomberg/eslint-config-prettier": "^0.1.4",
+    "@robinblomberg/eslint-config-robinblomberg": "^0.9.1",
+    "@robinblomberg/prettier-config": "^0.1.2",
+    "@types/react": "^17.0.37",
+    "tsc-watch": "^4.5.0"
+  },
+  "eslintConfig": {
+    "extends": [
+      "@robinblomberg/robinblomberg",
+      "@robinblomberg/prettier"
+    ]
+  },
+  "prettier": "@robinblomberg/prettier-config"
+}
