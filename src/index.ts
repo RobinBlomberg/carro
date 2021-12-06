@@ -93,7 +93,7 @@ export const useCarroState = <TState extends CarroState>(
     setState(newState: Partial<TState>) {
       originalSetState({
         ...state,
-        newState,
+        ...newState,
       });
     },
     state,
