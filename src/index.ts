@@ -55,7 +55,7 @@ export type CarroState = {
   [K in string]: unknown;
 };
 
-export const createComponentHook = <
+export const createUseComponent = <
   TParameters extends any[],
   TComputed extends CarroComputed,
   TEffects extends CarroEffects,
