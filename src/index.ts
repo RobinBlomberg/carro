@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState as reactUseState } from 'react';
 
 export type Carro<
   TComputed extends CarroComputed,
@@ -55,6 +55,24 @@ export type CarroState = {
   [K in string]: unknown;
 };
 
+export const createComponentHook = <
+  TParameters extends any[],
+  TComputed extends CarroComputed,
+  TEffects extends CarroEffects,
+  TEvents extends CarroEvents,
+  TMethods extends CarroMethods,
+  TMutations extends CarroMutations,
+  TState extends CarroState,
+>(
+  hook: (
+    ...args: TParameters
+  ) => CarroPayload<TComputed, TEffects, TEvents, TMethods, TMutations, TState>,
+) => {
+  return (...args: TParameters) => {
+    return useCarro(hook(...args));
+  };
+};
+
 export const useCarro = <
   TComputed extends CarroComputed,
   TEffects extends CarroEffects,
@@ -85,17 +103,15 @@ export const useCarro = <
   };
 };
 
-export const useCarroState = <TState extends CarroState>(
-  initialState: TState,
-) => {
-  const [state, originalSetState] = useState(initialState);
-  return {
-    setState(newState: Partial<TState>) {
-      originalSetState({
-        ...state,
-        ...newState,
-      });
-    },
-    state,
+export const useState = <TState extends CarroState>(initialState: TState) => {
+  const [state, originalSetState] = reactUseState(initialState);
+
+  const setState = (newState: Partial<TState>) => {
+    originalSetState({
+      ...state,
+      ...newState,
+    });
   };
+
+  return [state, setState] as const;
 };
